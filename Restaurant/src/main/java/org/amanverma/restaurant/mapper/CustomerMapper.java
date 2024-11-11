@@ -1,6 +1,7 @@
 package org.amanverma.restaurant.mapper;
 
 import org.amanverma.restaurant.dto.CustomerRequest;
+import org.amanverma.restaurant.dto.CustomerResponse;
 import org.amanverma.restaurant.entity.Customer;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,5 @@ public class CustomerMapper {
                 .pincode(request.pincode())
                 .build();
     }
+
 }

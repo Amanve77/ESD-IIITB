@@ -9,6 +9,8 @@ public record LoginRequest(@NotNull(message = "Email is required")
                            String email,
 
                            @NotNull(message = "Password is required")
+                           @NotEmpty(message = "Password should be present")
+                           @NotBlank(message = "Password should be present")
                            @Size(min = 6, max = 12)
                            @JsonProperty("password")
                            String password) {
