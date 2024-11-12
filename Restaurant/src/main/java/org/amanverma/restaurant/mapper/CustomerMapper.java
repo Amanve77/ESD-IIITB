@@ -19,4 +19,15 @@ public class CustomerMapper {
                 .build();
     }
 
+    public CustomerResponse toCustomerResponse(Customer customer) {
+        return new CustomerResponse(
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getEmail(),
+                customer.getAddress(),
+                customer.getCity(),
+                customer.getPincode()
+        );
+    }
+
 }

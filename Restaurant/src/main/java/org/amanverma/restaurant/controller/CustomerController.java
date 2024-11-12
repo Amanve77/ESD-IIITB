@@ -49,13 +49,25 @@ public class CustomerController {
     public ResponseEntity<String> deleteCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable String email) {
         String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
 
-        // Validate the JWT token for the email
         if (!jwtHelper.validateToken(jwtToken, email)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         }
 
         customerService.deleteCustomerByEmail(email);
         return ResponseEntity.ok("Customer deleted successfully");
+    }
+
+    @GetMapping("/retrieve")
+    public ResponseEntity<CustomerResponse> retrieveCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
+        String email = jwtHelper.extractEmail(jwtToken);
+
+        if (!jwtHelper.validateToken(jwtToken, email)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        CustomerResponse customer = customerService.getCustomerByEmail(email);
+        return ResponseEntity.ok(customer);
     }
 
 }
