@@ -45,4 +45,17 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.updateCustomerByEmail(request));
     }
 
+    @DeleteMapping("/delete/{email}")
+    public ResponseEntity<String> deleteCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable String email) {
+        String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
+
+        // Validate the JWT token for the email
+        if (!jwtHelper.validateToken(jwtToken, email)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+        }
+
+        customerService.deleteCustomerByEmail(email);
+        return ResponseEntity.ok("Customer deleted successfully");
+    }
+
 }

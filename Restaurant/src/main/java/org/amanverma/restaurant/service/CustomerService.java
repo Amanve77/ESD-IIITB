@@ -61,4 +61,11 @@ public class CustomerService{
         return "Customer updated successfully";
     }
 
+    public void deleteCustomerByEmail(String email) {
+        Customer customer = repo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("No customer found with email: " + email));
+
+        repo.delete(customer);
+    }
+
 }
