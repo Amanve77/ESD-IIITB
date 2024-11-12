@@ -1,0 +1,160 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #2a3b4d, #1b2838);
+    /*background-color: #0b1621; /* Slightly darker shade for contrast */
+    color: #c6d4df;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #1b2838;
+    padding: 0.75rem 1rem;
+}
+
+.navbar-brand, .nav-link {
+    color: #a2b4c6 !important;  /* Softer shade for links */
+    font-size: 1.5rem;
+    font-weight: 500;  /* Slightly less bold for a refined look */
+    padding: 0.2rem 0.2rem;
+    transition: color 0.3s ease-in-out;  /* Smooth transition for hover effect */
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #ffffff !important;  /* Bright white on hover for contrast */
+    font-weight: bold;  /* Optional: make text bold on hover */
+}
+
+/* Active Link Effect */
+.nav-link.active {
+    color: #c6d4df !important;  /* Slightly brighter color for active link */
+    font-weight: bold;
+    border-bottom: 2px solid #c6d4df;  /* Underline effect for active link */
+}
+
+
+
+/* Main Content */
+.main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #c6d4df; /* Soft light color */
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6), 0px 4px 12px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+    letter-spacing: 1.5px; /* Slightly spaced letters for a clean look */
+    padding-top: 0.5rem;
+}
+
+
+
+/* Glowing effect animation */
+/*@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px #f0e68c, 0 0 10px #f0e68c, 0 0 15px #f0e68c;
+    }
+    100% {
+        text-shadow: 0 0 10px #ffdd44, 0 0 20px #ffdd44, 0 0 30px #ffdd44;
+    }
+}*/
+
+
+/* Product Cards Styling */
+.games {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.card {
+    background-color: #2a3b4d;
+    color: #c6d4df;
+    border: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 280px;
+    min-height: 420px;
+    margin: 0 auto;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.card-text:last-child {
+    margin-top: auto; /* Pushes the Add to Cart button to the bottom */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.card-title {
+    color: #c6d4df;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.card-text {
+    color: #a2b4c6;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Styling for Price Section */
+.card-price {
+    font-size: 1.1rem;
+    color: #ffd700; /* Gold color to highlight the price */
+    font-weight: bold;
+    text-align: center;
+    margin: 0.5rem 0 1rem; /* Spacing adjustments */
+}
+
+
+.btn-primary {
+    background-color: #c6d4df;
+    border: none;
+    color: #1b2838;
+    width: 100%;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #1b2838;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .card {
+        flex: 1 1 calc(50% - 1.5rem);
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        flex: 1 1 100%;
+    }
+}
