@@ -18,8 +18,8 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(requestInterceptor)
-                .addPathPatterns("")
-                .excludePathPatterns("/api/v1/auth/**", "/api/v1/customer/**");
+                .addPathPatterns("/api/v1/customer/update", "/api/v1/customer/delete")
+                .excludePathPatterns("/api/v1/auth/login", "/api/v1/customer/create", "/api/v1/customer/retrieve");
     }
 
     @Bean

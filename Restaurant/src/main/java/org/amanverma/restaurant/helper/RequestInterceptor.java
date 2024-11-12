@@ -21,10 +21,10 @@ public class RequestInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        String token = authorizationHeader.substring(7); // Extract token from "Bearer {token}"
-        String username = jwtHelper.extractUsername(token);
+        String token = authorizationHeader.substring(7); 
+        String email = jwtHelper.extractEmail(token);
 
-        if (username == null || !jwtHelper.validateToken(token, username)) {
+        if (email == null || !jwtHelper.validateToken(token, email)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }

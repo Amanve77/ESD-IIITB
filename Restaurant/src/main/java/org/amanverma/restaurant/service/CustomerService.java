@@ -47,4 +47,18 @@ public class CustomerService{
         return jwtHelper.generateToken(request.email());
     }
 
+    public String updateCustomerByEmail(CustomerRequest request) {
+        Customer customer = repo.findByEmail(request.email())
+                .orElseThrow(() -> new RuntimeException("No customer found with email: " + request.email()));
+
+        customer.setFirstName(request.firstName());
+        customer.setLastName(request.lastName());
+        customer.setAddress(request.address());
+        customer.setCity(request.city());
+        customer.setPincode(request.pincode());
+
+        repo.save(customer);
+        return "Customer updated successfully";
+    }
+
 }

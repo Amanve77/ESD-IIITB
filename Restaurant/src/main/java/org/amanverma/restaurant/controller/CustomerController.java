@@ -7,21 +7,42 @@ import org.amanverma.restaurant.helper.JWTHelper;
 import org.amanverma.restaurant.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.amanverma.restaurant.validation.ValidationGroups;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/customer")
 
 public class CustomerController {
+    @Autowired
     private final CustomerService customerService;
+
+    @Autowired
     private final JWTHelper jwtHelper;
 
     @PostMapping("/create")
+    @Validated(ValidationGroups.CreateGroup.class)
     public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request) {
         return ResponseEntity.ok(customerService.createCustomer(request));
+    }
+
+    @PutMapping("/update")
+    @Validated(ValidationGroups.UpdateGroup.class)
+    public ResponseEntity<String> updateCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody @Valid CustomerRequest request) {
+        String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token; 
+        String email = jwtHelper.extractEmail(jwtToken); 
+
+        if (!jwtHelper.validateToken(jwtToken, email)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        return ResponseEntity.ok(customerService.updateCustomerByEmail(request));
     }
 
 }
