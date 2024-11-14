@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import org.amanverma.restaurant.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.amanverma.restaurant.dto.ProductResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +30,11 @@ public class ProductService {
         Product product = productMapper.toEntity(request);
         productRepo.save(product);
         return "Product Created Successfully";
+    }
+
+    public ProductResponse getProductById(Long id) {
+        Product product = productRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        return productMapper.toDto(product);
     }
 }

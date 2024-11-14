@@ -3,6 +3,7 @@ package org.amanverma.restaurant.mapper;
 import org.amanverma.restaurant.entity.Product;
 import org.amanverma.restaurant.dto.ProductRequest;
 import org.springframework.stereotype.Service;
+import org.amanverma.restaurant.dto.ProductResponse;
 
 @Service
 public class ProductMapper {
@@ -14,5 +15,11 @@ public class ProductMapper {
                 .build();
     }
 
+    public ProductResponse toDto(Product product) {
+        return new ProductResponse(
+                product.getName(),
+                product.getPrice()
+        );
+    }
 
 }
