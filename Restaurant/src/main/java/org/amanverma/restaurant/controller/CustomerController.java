@@ -34,8 +34,8 @@ public class CustomerController {
 
     @PutMapping("/update")
     @Validated(ValidationGroups.UpdateGroup.class)
-    public ResponseEntity<String> updateCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody @Valid CustomerRequest request) {
-        String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token; 
+     public ResponseEntity<String> updateCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody @Valid CustomerRequest request) {
+        String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
         String email = jwtHelper.extractEmail(jwtToken); 
 
         if (!jwtHelper.validateToken(jwtToken, email)) {
@@ -45,9 +45,10 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.updateCustomerByEmail(request));
     }
 
-    @DeleteMapping("/delete/{email}")
-    public ResponseEntity<String> deleteCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable String email) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
+        String email = jwtHelper.extractEmail(jwtToken);
 
         if (!jwtHelper.validateToken(jwtToken, email)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
@@ -69,5 +70,4 @@ public class CustomerController {
         CustomerResponse customer = customerService.getCustomerByEmail(email);
         return ResponseEntity.ok(customer);
     }
-
 }
