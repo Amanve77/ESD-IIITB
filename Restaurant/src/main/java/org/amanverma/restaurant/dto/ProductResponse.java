@@ -1,18 +1,13 @@
 package org.amanverma.restaurant.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.*;
 
-public record ProductRequest (
+public record ProductResponse(
 
         @JsonProperty("product_name")
         String name,
-
         @JsonProperty("price")
-        String price
+        Double price
 
-
-    )
-            {
-
+) {
 }
