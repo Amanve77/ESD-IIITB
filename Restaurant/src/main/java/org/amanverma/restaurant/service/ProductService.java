@@ -37,4 +37,8 @@ public class ProductService {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         return productMapper.toDto(product);
     }
+
+    public List<Product> getAllProducts() {
+        return productRepo.findAll();
+    }
 }
