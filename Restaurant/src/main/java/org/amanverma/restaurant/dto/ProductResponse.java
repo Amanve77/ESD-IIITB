@@ -7,7 +7,7 @@ public record ProductResponse(
         @JsonProperty("product_name")
         String name,
         @JsonProperty("price")
-        String price
+        Double price
 
 ) {
 }

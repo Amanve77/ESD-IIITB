@@ -9,7 +9,7 @@ public record ProductRequest (
         String name,
 
         @JsonProperty("price")
-        String price
+        Double price
 
 
     )

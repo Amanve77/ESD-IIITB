@@ -46,4 +46,9 @@ public class ProductController {
         return ResponseEntity.ok("Product deleted successfully");
     }
 
+    @GetMapping("/top2InRange")
+    public ResponseEntity<List<Product>> getTop2ProductsInRange(@RequestParam Double minPrice, @RequestParam Double maxPrice) {
+        return ResponseEntity.ok(productService.getTop2ProductsInRange(minPrice, maxPrice));
+    }
+
 }
