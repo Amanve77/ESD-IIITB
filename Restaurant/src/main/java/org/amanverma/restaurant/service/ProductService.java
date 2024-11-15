@@ -41,4 +41,13 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepo.findAll();
     }
+
+    public Product updateProduct(Long id, ProductRequest productRequest) {
+        Product product = productRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("No customer found with name: " + productRequest.name()));
+        product.setName(productRequest.name());  // Assuming productRequest has a getName() method
+        product.setPrice(productRequest.price());
+        return productRepo.save(product);
+    }
+
 }
