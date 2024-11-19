@@ -17,7 +17,7 @@ import org.springframework.validation.annotation.Validated;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/customer")
+@RequestMapping("/api/v1/customers")
 
 public class CustomerController {
     @Autowired
@@ -26,17 +26,16 @@ public class CustomerController {
     @Autowired
     private final JWTHelper jwtHelper;
 
-    @PostMapping("/create")
+    @PostMapping()
     @Validated(ValidationGroups.CreateGroup.class)
     public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request) {
         return ResponseEntity.ok(customerService.createCustomer(request));
     }
 
-    @PutMapping("/update")
+    @PutMapping("/{email}")
     @Validated(ValidationGroups.UpdateGroup.class)
-     public ResponseEntity<String> updateCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody @Valid CustomerRequest request) {
+     public ResponseEntity<String> updateCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody @Valid CustomerRequest request, @PathVariable String email) {
         String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
-        String email = jwtHelper.extractEmail(jwtToken); 
 
         if (!jwtHelper.validateToken(jwtToken, email)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
@@ -45,10 +44,9 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.updateCustomerByEmail(request));
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    @DeleteMapping("/{email}")
+    public ResponseEntity<String> deleteCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable String email) {
         String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
-        String email = jwtHelper.extractEmail(jwtToken);
 
         if (!jwtHelper.validateToken(jwtToken, email)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
@@ -58,10 +56,9 @@ public class CustomerController {
         return ResponseEntity.ok("Customer deleted successfully");
     }
 
-    @GetMapping("/retrieve")
-    public ResponseEntity<CustomerResponse> retrieveCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    @GetMapping("/{email}")
+    public ResponseEntity<CustomerResponse> retrieveCustomer(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable String email) {
         String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
-        String email = jwtHelper.extractEmail(jwtToken);
 
         if (!jwtHelper.validateToken(jwtToken, email)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
